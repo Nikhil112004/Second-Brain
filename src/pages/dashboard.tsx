@@ -47,7 +47,7 @@ export const Dashboard = () => {
 
   const handleDelete = async (id: string) => {
     try {
-      const response = await axios.delete(`${BACKEND_URL}/content/delete`, {
+      const response = await axios.delete(BACKEND_URL + "/api/v1/content", {
           data: {
             contentId: id
           }, 
