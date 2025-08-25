@@ -121,10 +121,13 @@ export const Card = ({
                         #{tag}
                     </span>
                 ))}
-            </div>
-            <p className="text-xs text-gray-400">
-                Added on {format(new Date(createdAt), "MM dd, yyyy")}
-            </p>
+                       </div>
+                      <p className="text-xs text-gray-400">
+             {createdAt
+               ? `Added on ${format(new Date(createdAt), "MM dd, yyyy")}`
+               : "Date unknown"}
+           </p>
+           
         </div>
     </div>
 }

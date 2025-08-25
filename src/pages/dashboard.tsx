@@ -29,19 +29,21 @@ export const Dashboard = () => {
   }, [])
 
   const fetchContents = async () => {
-    try {
-      const response = await axios.get(`${BACKEND_URL}/content/get`, {
-        headers: {
-          "Authorization": localStorage.getItem("token")
-        }
-      });
-      if(response.data.success) {
-        setContents(response.data.contents);
+  try {
+    const response = await axios.get(BACKEND_URL + "/api/v1/content", {
+      headers: {
+        "Authorization": localStorage.getItem("token")
       }
-    } catch (error) {
-      console.error(`Error while fetching contants: ${error}`);
+    });
+
+    if (response.data.content) {
+      setContents(response.data.content); // backend sends "content", not "contents"
     }
+  } catch (error) {
+    console.error(`Error while fetching contents: ${error}`);
   }
+}
+
 
   const handleDelete = async (id: string) => {
     try {
@@ -53,9 +55,10 @@ export const Dashboard = () => {
             "Authorization": localStorage.getItem("token")
           }
       });
-      if(response.data.success) {
-        setContents(contents.filter((content) => content._id !== id));
+            if (response.status === 200) {
+        setContents(contents.filter((c) => c._id !== id));
       }
+
     } catch (error) {
       console.error(`Error deleting content: ${error}`);
     }
